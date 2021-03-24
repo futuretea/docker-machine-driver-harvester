@@ -24,17 +24,17 @@ func (d *Driver) PreCreateCheck() error {
 		return err
 	}
 
-	// vm is not exist
+	// vm doesn't exist
 	_, err = c.VirtualMachines.Get(d.Namespace, d.MachineName)
 	if err == nil {
-		return fmt.Errorf("machine %s is already exist", d.MachineName)
+		return fmt.Errorf("machine %s already exists", d.MachineName)
 	}
 
 	// image exist
 	image, err := c.Images.Get(d.Namespace, d.ImageName)
 	if err != nil {
 		if goharverrors.IsNotFound(err) {
-			return fmt.Errorf("image %s is not exist in namespace %s", d.ImageName, d.Namespace)
+			return fmt.Errorf("image %s doesn't exist in namespace %s", d.ImageName, d.Namespace)
 		}
 		return err
 	}
@@ -49,7 +49,7 @@ func (d *Driver) PreCreateCheck() error {
 		keypair, err := c.Keypairs.Get(keypairNamespace, d.KeyPairName)
 		if err != nil {
 			if goharverrors.IsNotFound(err) {
-				return fmt.Errorf("keypair %s is not exist in namespace %s", d.KeyPairName, keypairNamespace)
+				return fmt.Errorf("keypair %s doesn't exist in namespace %s", d.KeyPairName, keypairNamespace)
 			}
 			return err
 		}
@@ -73,7 +73,7 @@ func (d *Driver) PreCreateCheck() error {
 		_, err = c.Networks.Get(d.Namespace, d.NetworkName)
 		if err != nil {
 			if goharverrors.IsNotFound(err) {
-				return fmt.Errorf("network %s is not exist in namespace %s", d.KeyPairName, d.Namespace)
+				return fmt.Errorf("network %s doesn't exist in namespace %s", d.KeyPairName, d.Namespace)
 			}
 			return err
 		}

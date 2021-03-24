@@ -11,16 +11,16 @@ import (
 const (
 	defaultNamespace = "default"
 
-	defaultPort = 30443
+	defaultInClusterHost = "harvester.harvester-system"
+	defaultInClusterPort = 8443
 
 	defaultCPU          = 2
-	defaultMemorySize   = 2
-	defaultDiskSize     = 20
+	defaultMemorySize   = 4
+	defaultDiskSize     = 40
 	defaultDiskBus      = "virtio"
 	defaultNetworkModel = "virtio"
-	networkTypePod      = ""
+	networkTypePod      = "pod"
 	networkTypeDHCP     = "dhcp"
-	networkTypeStatic   = "static"
 )
 
 func (d *Driver) GetCreateFlags() []mcnflag.Flag {
@@ -29,12 +29,13 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			EnvVar: "HARVESTER_HOST",
 			Name:   "harvester-host",
 			Usage:  "harvester host",
+			Value:  defaultInClusterHost,
 		},
 		mcnflag.IntFlag{
 			EnvVar: "HARVESTER_PORT",
 			Name:   "harvester-port",
 			Usage:  "harvester port",
-			Value:  defaultPort,
+			Value:  defaultInClusterPort,
 		},
 		mcnflag.StringFlag{
 			EnvVar: "HARVESTER_USERNAME",
@@ -112,6 +113,7 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			EnvVar: "HARVESTER_NETWORK_TYPE",
 			Name:   "harvester-network-type",
 			Usage:  "harvester network type",
+			Value:  networkTypeDHCP,
 		},
 		mcnflag.StringFlag{
 			EnvVar: "HARVESTER_NETWORK_NAME",
@@ -123,21 +125,6 @@ func (d *Driver) GetCreateFlags() []mcnflag.Flag {
 			Name:   "harvester-network-model",
 			Usage:  "harvester network model",
 			Value:  defaultNetworkModel,
-		},
-		mcnflag.StringFlag{
-			EnvVar: "HARVESTER_NETWORK_INTERFACE",
-			Name:   "harvester-network-interface",
-			Usage:  "harvester network interface",
-		},
-		mcnflag.StringFlag{
-			EnvVar: "HARVESTER_NETWORK_MASK",
-			Name:   "harvester-network-mask",
-			Usage:  "harvester network mask",
-		},
-		mcnflag.StringFlag{
-			EnvVar: "HARVESTER_NETWORK_GATEWAY",
-			Name:   "harvester-network-gateway",
-			Usage:  "harvester network gateway",
 		},
 	}
 }
@@ -166,11 +153,7 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 	d.NetworkType = flags.String("harvester-network-type")
 
 	d.NetworkName = flags.String("harvester-network-name")
-	d.NetworkInterface = flags.String("harvester-network-interface")
 	d.NetworkModel = flags.String("harvester-network-model")
-
-	d.NetworkMask = flags.String("harvester-network-mask")
-	d.NetworkGateway = flags.String("harvester-network-gateway")
 
 	d.SetSwarmConfigFromFlags(flags)
 
@@ -178,9 +161,6 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 }
 
 func (d *Driver) checkConfig() error {
-	if d.Host == "" {
-		return errors.New("must specify harvester host")
-	}
 	if d.Username == "" {
 		return errors.New("must specify harvester username")
 	}
@@ -195,20 +175,9 @@ func (d *Driver) checkConfig() error {
 	}
 	switch d.NetworkType {
 	case networkTypePod:
-	case networkTypeStatic, networkTypeDHCP:
+	case networkTypeDHCP:
 		if d.NetworkName == "" {
 			return errors.New("must specify harvester network name")
-		}
-		if d.NetworkInterface == "" {
-			return errors.New("must specify harvester network interface")
-		}
-		if d.NetworkType == networkTypeStatic {
-			if d.NetworkMask == "" {
-				return errors.New("must specify harvester network mask")
-			}
-			if d.NetworkGateway == "" {
-				return errors.New("must specify harvester network gateway")
-			}
 		}
 	default:
 		return fmt.Errorf("unknown network type %s", d.NetworkType)
