@@ -2,6 +2,7 @@ package drivers
 
 import (
 	"errors"
+	"strings"
 
 	"github.com/rancher/machine/libmachine/log"
 	"github.com/rancher/machine/libmachine/mcnflag"
@@ -106,4 +107,23 @@ func MustBeRunning(d Driver) error {
 	}
 
 	return nil
+}
+
+// DriverUserdataFlag returns true if the driver is detected to have a userdata flag.
+func DriverUserdataFlag(d Driver) string {
+	for _, opt := range d.GetCreateFlags() {
+		if nameIsUserData(opt.String()) {
+			return opt.String()
+		}
+	}
+
+	return ""
+}
+
+// nameIsUserData returns true if the given flag is a userdata flag
+func nameIsUserData(name string) bool {
+	return strings.Contains(name, "user-data") ||
+		strings.Contains(name, "userdata") ||
+		strings.Contains(name, "custom-data") ||
+		strings.Contains(name, "cloud-config")
 }

@@ -67,5 +67,5 @@ func (f BoolFlag) String() string {
 }
 
 func (f BoolFlag) Default() interface{} {
-	return nil
+	return false
 }
