@@ -62,12 +62,13 @@ github.com/guonaihong/gout/export
 github.com/guonaihong/gout/filter
 github.com/guonaihong/gout/interface
 github.com/guonaihong/gout/setting
-# github.com/harvester/go-harvester v0.0.0-20210407083506-3c5dcb6a2f6f
+# github.com/harvester/go-harvester v0.0.0-20210420033558-cac37e5fbec1
 github.com/harvester/go-harvester/pkg/builder
 github.com/harvester/go-harvester/pkg/client
 github.com/harvester/go-harvester/pkg/client/generated/v1
 github.com/harvester/go-harvester/pkg/clientbase
 github.com/harvester/go-harvester/pkg/errors
+github.com/harvester/go-harvester/pkg/utils
 # github.com/hashicorp/golang-lru v0.5.4
 github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
@@ -94,9 +95,9 @@ github.com/pborman/uuid
 github.com/pkg/errors
 # github.com/rancher/apiserver v0.0.0-20210209001659-a17289640582
 github.com/rancher/apiserver/pkg/types
-# github.com/rancher/harvester v0.0.2-0.20210406071214-bde3f1680e82
-github.com/rancher/harvester/pkg/apis/harvester.cattle.io
-github.com/rancher/harvester/pkg/apis/harvester.cattle.io/v1alpha1
+# github.com/rancher/harvester v0.0.2-0.20210420022352-cd1365517c34
+github.com/rancher/harvester/pkg/apis/harvesterhci.io
+github.com/rancher/harvester/pkg/apis/harvesterhci.io/v1beta1
 # github.com/rancher/lasso v0.0.0-20210219160604-9baf1c12751b
 github.com/rancher/lasso/pkg/cache
 github.com/rancher/lasso/pkg/client
