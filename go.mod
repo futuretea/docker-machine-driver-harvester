@@ -6,6 +6,7 @@ replace (
 	github.com/dgrijalva/jwt-go => github.com/dgrijalva/jwt-go v3.2.1-0.20200107013213-dc14462fd587+incompatible
 	github.com/docker/distribution => github.com/docker/distribution v0.0.0-20191216044856-a8371794149d
 	github.com/docker/docker => github.com/docker/docker v1.4.2-0.20200203170920-46ec8731fbce
+	github.com/harvester/go-harvester => github.com/futuretea/go-harvester v0.0.0-20210420073510-6917adab5042
 
 	github.com/knative/pkg => github.com/rancher/pkg v0.0.0-20190514055449-b30ab9de040e
 	github.com/openshift/api => github.com/openshift/api v0.0.0-20191219222812-2987a591a72c
@@ -39,13 +40,13 @@ replace (
 	k8s.io/mount-utils => k8s.io/mount-utils v0.20.4
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.20.4
 
-	kubevirt.io/client-go => github.com/rancher/kubevirt-client-go v0.20.2-0.20210226083314-113aa8c70a95
+	kubevirt.io/client-go => github.com/kubevirt/client-go v0.40.0-rc.2
 	kubevirt.io/containerized-data-importer => github.com/rancher/kubevirt-containerized-data-importer v1.26.1-0.20210303063201-9e7a78643487
 	sigs.k8s.io/structured-merge-diff => sigs.k8s.io/structured-merge-diff v0.0.0-20190302045857-e85c7b244fd2
 )
 
 require (
-	github.com/harvester/go-harvester v0.0.0-20210420033558-cac37e5fbec1
+	github.com/harvester/go-harvester v0.0.0
 	github.com/rancher/machine v0.15.0-rancher52
 	k8s.io/api v0.20.4
 	k8s.io/utils v0.0.0-20201110183641-67b214c5f920
