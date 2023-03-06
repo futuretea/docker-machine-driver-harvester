@@ -12,7 +12,8 @@ import (
 )
 
 const (
-	userDataHeader = `#cloud-config
+	userDataHeader = `## template: jinja
+#cloud-config
 `
 	userDataAddQemuGuestAgent = `
 package_update: true
