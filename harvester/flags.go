@@ -3,7 +3,6 @@ package harvester
 import (
 	"encoding/base64"
 	"fmt"
-	"strconv"
 
 	"github.com/rancher/machine/libmachine/drivers"
 	"github.com/rancher/machine/libmachine/mcnflag"
@@ -153,7 +152,7 @@ func (d *Driver) SetConfigFromFlags(flags drivers.DriverOptions) error {
 
 	d.CPU = flags.Int("harvester-cpu-count")
 	d.MemorySize = fmt.Sprintf("%dGi", flags.Int("harvester-memory-size"))
-	d.DiskSize = strconv.Itoa(flags.Int("harvester-disk-size"))
+	d.DiskSize = flags.String("harvester-disk-size")
 	d.DiskBus = flags.String("harvester-disk-bus")
 
 	d.ImageName = flags.String("harvester-image-name")
